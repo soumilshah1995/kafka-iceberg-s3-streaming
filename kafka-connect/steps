@@ -1,0 +1,23 @@
+
+
+# Follow these steps to build kafka connect iceberg sink
+########################################
+# GET OFFICIAL KAFKA CONNECT ICEBERG CONNECTOR
+########################################
+
+# Create and run a build container
+docker run -it --name iceberg-build -v "$PWD":/workspace eclipse-temurin:17-jdk bash
+
+# Install required dependencies
+apt-get update && apt-get install -y git unzip wget
+
+# Install Gradle
+wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
+unzip gradle-8.5-bin.zip -d /opt
+export PATH=/opt/gradle-8.5/bin:$PATH
+
+# Clone and build Iceberg
+cd /workspace
+git clone https://github.com/apache/iceberg.git
+cd iceberg
+./gradlew -x test -x integrationTest clean build

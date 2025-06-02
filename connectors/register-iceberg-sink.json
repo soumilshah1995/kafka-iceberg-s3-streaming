@@ -1,0 +1,28 @@
+{
+    "name": "iceberg-sink",
+    "config": {
+        "connector.class": "org.apache.iceberg.connect.IcebergSinkConnector",
+        "topics": "customers",
+        "tasks.max": "1",
+        "iceberg.catalog.type": "rest",
+        "iceberg.catalog.uri": "https://s3tables.us-east-1.amazonaws.com/iceberg",
+        "iceberg.catalog.warehouse": "arn:aws:s3tables:us-east-1:<ACCOUNT>:bucket/soumilshah-dev",
+        "iceberg.catalog.client.region": "us-east-1",
+        "iceberg.catalog.rest.signing-region": "us-east-1",
+        "iceberg.catalog.rest.signing-name": "s3tables",
+        "iceberg.catalog.rest.sigv4-enabled": "true",
+        "iceberg.catalog.io-impl": "org.apache.iceberg.aws.s3.S3FileIO",
+        "iceberg.tables": "my_database.customers_table",
+        "iceberg.tables.auto-create-enabled": "true",
+        "iceberg.tables.evolve-schema-enabled": "true",
+        "iceberg.tables.upsert-mode-enabled": "false",
+        "iceberg.tables.dynamic-enabled": "false",
+        "iceberg.control.topic": "iceberg-connector-control-v1",
+        "iceberg.control.commit.interval-ms": "60000",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter.schemas.enable": "false",
+        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter.schemas.enable": "false",
+        "errors.log.enable": "true"
+    }
+}
